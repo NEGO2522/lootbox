@@ -5,9 +5,24 @@ module lootbox::lootbox {
     use sui::transfer;
     use sui::tx_context::TxContext;
     use sui::random::{Random, new_generator};
+    use sui::coin::{Self, Coin};
+    use sui::sui::SUI;
 
+    // ── Constants ──────────────────────────────────────────────
+    // 0.01 SUI = 10_000_000 MIST (1 SUI = 1_000_000_000 MIST)
+    const PRICE_MIST: u64 = 10_000_000;
+
+    // Treasury address — receives every payment
+    // Replace with your own Sui wallet address
+    const TREASURY: address = @0x10bc42773f189a376d74412f9719b886feca2437df649451e496456850774478;
+
+    // ── Error codes ────────────────────────────────────────────
+    const EInsufficientPayment: u64 = 1;
+
+    // ── Structs ────────────────────────────────────────────────
     public struct RewardEvent has copy, drop {
-        reward: u8
+        reward: u8,
+        player: address,
     }
 
     public struct LootNFT has key {
@@ -17,13 +32,35 @@ module lootbox::lootbox {
         tier: u8,
     }
 
-    /// `r` is Sui's on-chain Random object — always at address 0x8
-    /// It gives a different result every single transaction, for every user
-    public entry fun open_box(r: &Random, ctx: &mut TxContext) {
-        // Create a generator seeded from Sui's on-chain randomness
-        let mut generator = new_generator(r, ctx);
+    // ── Entry function ─────────────────────────────────────────
+    /// Player passes a SUI Coin worth at least PRICE_MIST.
+    /// Excess is returned to the player. Payment goes to TREASURY.
+    public entry fun open_box(
+        payment: Coin<SUI>,
+        r: &Random,
+        ctx: &mut TxContext
+    ) {
+        // 1. Verify payment amount
+        let paid = coin::value(&payment);
+        assert!(paid >= PRICE_MIST, EInsufficientPayment);
 
-        // Roll 0–99
+        // 2. Split exact price and return change if any
+        let mut payment_mut = payment;
+        let treasury_coin = coin::split(&mut payment_mut, PRICE_MIST, ctx);
+
+        // Return leftover change to sender
+        let change = coin::value(&payment_mut);
+        if (change > 0) {
+            transfer::public_transfer(payment_mut, ctx.sender());
+        } else {
+            coin::destroy_zero(payment_mut);
+        };
+
+        // 3. Send price to treasury
+        transfer::public_transfer(treasury_coin, TREASURY);
+
+        // 4. Roll randomness
+        let mut generator = new_generator(r, ctx);
         let roll = generator.generate_u8_in_range(0, 99);
 
         // 70% Common, 25% Rare, 5% Epic
@@ -43,6 +80,7 @@ module lootbox::lootbox {
             b"https://placehold.co/400x400/1a1a2e/ff9f43?text=EPIC+NFT&font=playfair-display"
         };
 
+        // 5. Mint NFT to player
         let nft = LootNFT {
             id: object::new(ctx),
             name,
@@ -51,6 +89,6 @@ module lootbox::lootbox {
         };
 
         transfer::transfer(nft, ctx.sender());
-        event::emit(RewardEvent { reward: tier });
+        event::emit(RewardEvent { reward: tier, player: ctx.sender() });
     }
 }
