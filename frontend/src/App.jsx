@@ -139,6 +139,8 @@ function ChestIcon({ phase, reward }) {
   return (
     <div className={`chest-wrap ${isShaking ? "shaking" : ""} ${isOpened ? "opened" : ""} ${isIdle ? "idle-float" : ""}`}>
       {r && <div className="chest-ring" style={{ borderColor: r.color + "55", boxShadow: `0 0 40px ${r.glow}44` }} />}
+      <div className="chest-ring-2" />
+      <div className="chest-platform" />
       <div className="chest-glow" style={r ? { background: r.glow, opacity: 0.55 } : {}} />
       <svg viewBox="0 0 120 100" className="chest-svg" xmlns="http://www.w3.org/2000/svg">
         <ellipse cx="60" cy="97" rx="38" ry="5" fill="rgba(0,0,0,0.4)" />
@@ -620,11 +622,12 @@ function App({ onBack }) {
       <div className="app-layout">
 
         {/* ═══ LEFT PANEL ═══ */}
-        <div className="panel panel-left">
+        <div className="panel panel-left" data-tier={rewardId || ""}>
           <div className="header">
             <div className="subtitle">SUI BLOCKCHAIN · NFT MINT</div>
             <h1 className="title">LOOT CHEST</h1>
-            <p className="tagline">Open the chest. Mint your NFT. Own it forever.</p>
+            <div className="title-divider"><span className="title-divider-gem">⬡</span></div>
+            <p className="tagline">Open the chest. Claim your fate.</p>
           </div>
 
           <div className="wallet-row"><WalletButton /></div>
