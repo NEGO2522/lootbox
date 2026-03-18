@@ -619,6 +619,11 @@ function App({ onBack }) {
         </div>
       )}
 
+      {/* Wallet floats outside all panels so dropdown never gets clipped */}
+      <div className="wallet-float">
+        <WalletButton />
+      </div>
+
       <div className="app-layout">
 
         {/* ═══ LEFT PANEL ═══ */}
@@ -629,8 +634,6 @@ function App({ onBack }) {
             <div className="title-divider"><span className="title-divider-gem">⬡</span></div>
             <p className="tagline">Open the chest. Claim your fate.</p>
           </div>
-
-          <div className="wallet-row"><WalletButton /></div>
 
           {/* Chest with phase-aware animation */}
           <ChestIcon phase={phase} reward={rewardId} />
