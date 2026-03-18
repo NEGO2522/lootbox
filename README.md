@@ -1,4 +1,4 @@
-# 🎁 LootChest — On-Chain NFT Loot Box on Sui
+# LootChest — On-Chain NFT Loot Box on Sui
 
 > Open a mystical chest. Receive a provably fair NFT. Own it forever — on the Sui blockchain.
 
@@ -6,24 +6,24 @@
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Details |
 |---|---|
-| 🎲 **True randomness** | Uses `sui::random` — Sui's native VRF, cryptographically unpredictable every TX |
-| 💎 **3 NFT tiers** | Common (70%), Rare (25%), Epic (5%) |
-| ⛓ **Fully on-chain** | No backend, no admin keys, every result verifiable on Sui Explorer |
-| 💰 **Pay-to-play** | 0.01 SUI per chest — sent directly to treasury via smart contract |
-| 🎉 **Reveal modal** | Animated reveal with confetti, sound effects, and tier-glow |
-| 🔊 **Sound effects** | Web Audio API — different melody per tier, no audio files needed |
-| ⏳ **Cooldown timer** | 8-second spam prevention with animated drain bar |
-| 🎒 **My Collection** | Fetches all your LootChest NFTs from the blockchain with live stats |
-| 🌐 **Landing page** | Scroll-reveal animations, floating reward chips, FAQ, How It Works |
-| 📱 **Responsive** | Works on desktop and mobile |
+| **True randomness** | Uses `sui::random` — Sui's native VRF, cryptographically unpredictable every TX |
+| **3 NFT tiers** | Common (70%), Rare (25%), Epic (5%) |
+| **Fully on-chain** | No backend, no admin keys, every result verifiable on Sui Explorer |
+| **Pay-to-play** | 0.01 SUI per chest — sent directly to treasury via smart contract |
+| **Reveal modal** | Animated reveal with confetti, sound effects, and tier-glow |
+| **Sound effects** | Web Audio API — different melody per tier, no audio files needed |
+| **Cooldown timer** | 8-second spam prevention with animated drain bar |
+| **My Collection** | Fetches all your LootChest NFTs from the blockchain with live stats |
+| **Landing page** | Scroll-reveal animations, floating reward chips, FAQ, How It Works |
+| **Responsive** | Works on desktop and mobile |
 
 ---
 
-## 🏗 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -37,7 +37,7 @@
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 lootbox/
@@ -59,7 +59,7 @@ lootbox/
 
 ---
 
-## 📜 Smart Contract
+## Smart Contract
 
 **Package address (Testnet):**
 ```
@@ -111,7 +111,7 @@ public struct RewardEvent has copy, drop {
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -164,43 +164,43 @@ Open [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## 🎮 How to Play
+## How to Play
 
 1. Go to the landing page → click **Launch App**
 2. Click **Connect Wallet** → select your Sui wallet
 3. Make sure you have testnet SUI ([faucet.sui.io](https://faucet.sui.io))
-4. Click **⚡ Mint NFT — 0.01 SUI**
+4. Click **Mint NFT — 0.01 SUI**
 5. Approve the transaction in your wallet
 6. Watch the chest shake and open — your NFT reveal modal appears with confetti and sound!
-7. Click **🔍 View NFT** to see your NFT on Suiscan
-8. Switch to **🎒 My Collection** to see all your LootChest NFTs
+7. Click **View NFT** to see your NFT on Suiscan
+8. Switch to **My Collection** to see all your LootChest NFTs
 
 ---
 
-## 🔮 Reward Tiers
+## Reward Tiers
 
 | Tier | Emoji | Drop Rate | Name |
 |---|---|---|---|
-| Common | 🎁 | 70% | Common NFT |
-| Rare | 💎 | 25% | Rare NFT |
-| Epic | 🔥 | 5% | Epic NFT |
+| Common | 70% | Common NFT |
+| Rare | 25% | Rare NFT |
+| Epic | 5% | Epic NFT |
 
 ---
 
-## 🎲 Why sui::random?
+## Why sui::random?
 
 The old approach used `epoch + wallet address byte` as a seed — this gave the **same result all day** for users with the same wallet byte, and was trivially predictable.
 
 `sui::random` uses Sui's native **Verifiable Random Function (VRF)** — an on-chain shared object at address `0x8` that is updated every epoch with a distributed key generation protocol. When combined with your transaction data via `new_generator(r, ctx)`, it produces a result that is:
 
-- ✅ Different every single transaction
-- ✅ Cryptographically unpredictable
-- ✅ Impossible to manipulate (not even the contract deployer can influence it)
-- ✅ Fully verifiable on-chain
+- Different every single transaction
+- Cryptographically unpredictable
+- Impossible to manipulate (not even the contract deployer can influence it)
+- Fully verifiable on-chain
 
 ---
 
-## 🔧 Customising
+## Customising
 
 | What | Where | How |
 |---|---|---|
@@ -213,7 +213,7 @@ The old approach used `epoch + wallet address byte` as a seed — this gave the 
 
 ---
 
-## ⚠️ Known Limitations
+## Known Limitations
 
 - **Testnet only** — Do not use real funds. Contract is on Sui Testnet.
 - **Placeholder images** — NFT images use `placehold.co`. Replace with real IPFS images.
@@ -222,7 +222,7 @@ The old approach used `epoch + wallet address byte` as a seed — this gave the 
 
 ---
 
-## 🗺 Roadmap
+## Roadmap
 
 - [ ] Upload real NFT artwork to IPFS (Pinata)
 - [ ] Implement Sui `display` standard for proper NFT metadata
@@ -233,13 +233,13 @@ The old approach used `epoch + wallet address byte` as a seed — this gave the 
 
 ---
 
-## 📄 License
+## License
 
 MIT — see [LICENSE](./LICENSE)
 
 ---
 
-## 🙏 Built With
+## Built With
 
 - [Sui Blockchain](https://sui.io) — Move smart contracts + sui::random
 - [Mysten dapp-kit](https://sdk.mystenlabs.com/dapp-kit) — wallet integration
