@@ -1,0 +1,10 @@
+[package]
+name = "lootbox"
+edition = "2024"
+license = "MIT"
+authors = ["your-github-username"]
+
+[dependencies]
+
+# Read more about the package management system options:
+# https://docs.sui.io/guides/developer/sui-101/move-package-management

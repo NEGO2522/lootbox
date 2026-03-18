@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mysten/dapp-kit": "^1.0.4",
+    "@mysten/sui": "^2.9.0"
+  }
+}
